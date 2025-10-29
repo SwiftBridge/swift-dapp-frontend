@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useAccount } from 'wagmi'
-import { Send, Search, Plus, MoreVertical, Phone, Video } from 'lucide-react'
+import { Send, Search, Plus, MoreVertical, Phone, Video, MessageCircle } from 'lucide-react'
 import { MessageBubble } from './MessageBubble'
 import { ContactList } from './ContactList'
 
