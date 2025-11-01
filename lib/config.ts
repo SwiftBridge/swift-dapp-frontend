@@ -1,27 +1,27 @@
 import { createAppKit } from '@reown/appkit/react'
-import { WagmiProvider } from 'wagmi'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
+import { QueryClient } from '@tanstack/react-query'
 import { mainnet, base } from 'wagmi/chains'
-import { createConfig, http } from 'wagmi'
 
 // Get environment variables
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID!
-const baseRpcUrl = process.env.NEXT_PUBLIC_BASE_RPC_URL || 'https://mainnet.base.org'
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID_HERE'
+const baseRpcUrl = process.env.NEXT_PUBLIC_RPC_URL || 'https://mainnet.base.org'
 
-// Create wagmi config
-export const config = createConfig({
-  chains: [base, mainnet],
-  transports: {
-    [base.id]: http(baseRpcUrl),
-    [mainnet.id]: http(),
-  },
+// Create Wagmi Adapter
+const wagmiAdapter = new WagmiAdapter({
+  networks: [base, mainnet],
+  projectId,
 })
+
+// Create wagmi config from adapter
+export const config = wagmiAdapter.wagmiConfig
 
 // Create AppKit
 export const appKit = createAppKit({
-  adapters: [config],
+  adapters: [wagmiAdapter],
   projectId,
-  defaultChain: base,
+  networks: [base, mainnet],
+  defaultNetwork: base,
   metadata: {
     name: 'Swift v2',
     description: 'Decentralized Social Messaging Platform',
