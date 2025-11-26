@@ -3,15 +3,16 @@
 import { useState } from 'react'
 import { useAccount } from 'wagmi'
 import { useAppKit } from '@reown/appkit/react'
-import { MessageCircle, Users, Send, Zap, Shield, Globe } from 'lucide-react'
+import { MessageCircle, Users, Send, Zap, Shield, Globe, FileCode } from 'lucide-react'
 import { Dashboard } from '@/components/Dashboard'
 import { SocialMessaging } from '@/components/SocialMessaging'
 import { BatchMessaging } from '@/components/BatchMessaging'
 import { BatchTransactions } from '@/components/BatchTransactions'
 import { UserProfile } from '@/components/UserProfile'
+import { ContractExplorer } from '@/components/ContractExplorer'
 import { Button } from '@/components/ui/button'
 
-type TabType = 'dashboard' | 'social' | 'batch-messaging' | 'batch-transactions' | 'profile'
+type TabType = 'dashboard' | 'social' | 'batch-messaging' | 'batch-transactions' | 'profile' | 'contracts'
 
 export default function Home() {
   const { isConnected } = useAccount()
@@ -23,6 +24,7 @@ export default function Home() {
     { id: 'social', label: 'Social', icon: MessageCircle },
     { id: 'batch-messaging', label: 'Batch Messaging', icon: Users },
     { id: 'batch-transactions', label: 'Batch Transactions', icon: Send },
+    { id: 'contracts', label: 'Contracts', icon: FileCode },
     { id: 'profile', label: 'Profile', icon: Shield },
   ]
 
@@ -231,6 +233,7 @@ export default function Home() {
         {activeTab === 'social' && <SocialMessaging />}
         {activeTab === 'batch-messaging' && <BatchMessaging />}
         {activeTab === 'batch-transactions' && <BatchTransactions />}
+        {activeTab === 'contracts' && <ContractExplorer />}
         {activeTab === 'profile' && <UserProfile />}
       </main>
     </div>
